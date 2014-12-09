@@ -77,6 +77,12 @@ describe BloomApi::Provider do
     subject { provider.deactivation_date }
 
     it { expect(subject).to eq Date.new(2006,5,23) }
+
+    context 'when nil' do
+      before { provider_params.delete 'deactivation_date' }
+
+      it { expect(subject).to be_nil }
+    end
   end
 
   describe '#deactivation_reason' do
@@ -152,6 +158,12 @@ describe BloomApi::Provider do
     subject { provider.reactivation_date }
 
     it { expect(subject).to eq Date.new(2006,9,23) }
+
+    context 'when there is no reactivation date' do
+      before { provider_params.delete 'reactivation_date' }
+
+      it { expect(subject).to be_nil }
+    end
   end
 
   describe '#recorded_at' do
