@@ -23,9 +23,13 @@ Or install it yourself as:
 ## Usage
 
 ### Look up a provider
-    provider = BloomApi.find_by_npi(1841223922)
-    provider.npi        # => 1841223922
-    provider.first_name # => PETER
+    provider = BloomApi.find_by_npi('1841223922')
+    provider.npi                      # => '1841223922'
+    provider.first_name               # => 'PETER'
+    provider.business_address.state   # => 'OH'
+    
+For a list of all data available visit the Bloom Api site above and / or
+check out the ruby docs here: http://www.rubydoc.info/github/carp47/bloom_api/master
 
 ## Contributing
 

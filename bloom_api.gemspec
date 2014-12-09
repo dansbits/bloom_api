@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["daniel.carpenter01@gmail.com"]
   spec.summary       = %q{A gem for retrieving data from the Bloom API.}
   spec.description   = %q{A ruby gem for accessing data from any instance of the Bloom API. For more informatoin, visit http://www.bloomapi.com/}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/carp47/bloom_api"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
