@@ -1,6 +1,8 @@
 # BloomApi
 
-TODO: Write a gem description
+This gem provides a client for accessing healthcare provider information
+via Bloom Api. For detailed information on Bloom Api visit the
+web site (http://www.bloomapi.com/).
 
 ## Installation
 
@@ -20,7 +22,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Look up a provider
+    provider = BloomApi.find_by_npi(1841223922)
+    provider.npi        # => 1841223922
+    provider.first_name # => PETER
 
 ## Contributing
 
