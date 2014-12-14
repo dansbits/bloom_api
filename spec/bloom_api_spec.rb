@@ -29,6 +29,13 @@ describe BloomApi do
           expect(subject.npi).to eq '1013191311'
         end
       end
+
+      context 'when type is not present' do
+        let(:npi) { '1003998626' }
+
+        it { expect(subject).to be_a BloomApi::Provider }
+
+      end
     end
 
     context 'when given an invalid npi' do

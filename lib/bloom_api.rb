@@ -40,6 +40,7 @@ module BloomApi
   def self.build_provider(response)
     return Individual.new(response) if response['type'] == 'individual'
     return Organization.new(response) if response['type'] == 'organization'
+    Provider.new(response)
   end
 
 end
