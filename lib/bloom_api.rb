@@ -32,7 +32,7 @@ module BloomApi
   def self.find_by_npi(npi)
     response = Net::HTTP.get_response(BASE_URL, "/api/npis/#{npi}")
 
-    build_provider(JSON.parse(response.body)['result']) if response.code == "200"
+    build_provider(JSON.parse(response.body)['result']) if response && response.code == "200"
   end
 
   private
