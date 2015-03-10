@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe BloomApi::Api do
+describe BloomApi do
 
   describe '#find_by_npi' do
 
@@ -8,7 +8,7 @@ describe BloomApi::Api do
       allow(Net::HTTP).to receive(:get_response).with("www.bloomapi.com/api/npis/#{npi}").and_return(json_response)
     end
 
-    subject { BloomApi::Api.find_by_npi(npi) }
+    subject { BloomApi.find_by_npi(npi) }
 
     context 'when given a valid npi' do
       let(:npi) { '1003002809' }
