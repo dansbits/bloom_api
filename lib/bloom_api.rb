@@ -21,19 +21,22 @@ module BloomApi
   class ProviderNotFound < Exception; end
 
   # The base url for the bloom api.
-  BASE_URL = "www.bloomapi.com"
-  NPI_SEARCH_PATH = "/api/search/npi"
+  mattr_accessor :base_url, :npi_search_path, :api_key
+  @@base_url = "www.bloomapi.com"
+  @@npi_search_path = "/api/search/npi"
+  @@api_key = nil
 
   # Look up a health care provider or organization by the provided criteria
   #
-  # @params criteria [Hash] criteria to query against
+  # @params options [Hash] criteria to filter results by
   # @params limit [Integer] optional, sets the maximum number of records to return. Default is 20 and maximum is 100
   # @params offset [Integer] optional, sets a number of records to skip before returning. Default is 0
   # @return results [Array] Array of providers and/or organizations that match the criteria
   def self.find_by(options, limit=20, offset=0)
 		criteria = options.each_with_index.map {|x,i| "key#{i+1}=#{URI::escape(x[0].to_s)}&op#{i+1}=eq&value#{i+1}=#{URI::escape(x[1])}"} || []
 		criteria << "limit=#{limit}&offset=#{offset}"
-		uri = URI::HTTP.build(host: BASE_URL, path: NPI_SEARCH_PATH, query: criteria.join('&'))
+    criteria << "secret=#{api_key}" if api_key.present?
+		uri = URI::HTTP.build(host: base_url, path: npi_search_path, query: criteria.join('&'))
 		response = Net::HTTP.get_response(uri)
 
 		build_provider(JSON.parse(response.body)['result']) if response && response.code == "200"
@@ -47,7 +50,9 @@ module BloomApi
   #
   # @raise [ProviderNotFound] if the provided npi does not reference a provider
   def self.find_by_npi(npi)
-    response = Net::HTTP.get_response(BASE_URL, "/api/npis/#{npi}")
+    path = "/api/npis/#{npi}"
+    path += "?secret=#{api_key}" if api_key.present?
+    response = Net::HTTP.get_response(base_url, path)
 
     build_provider(JSON.parse(response.body)['result']) if response && response.code == "200"
   end

@@ -19,6 +19,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install bloom_api
+    
+Finally, run the generator to get the bloom_api.rb initializer:
+
+    $ rails g bloom_api:install
 
 ## Usage
 
